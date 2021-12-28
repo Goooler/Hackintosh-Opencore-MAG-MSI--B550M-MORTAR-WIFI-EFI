@@ -84,7 +84,7 @@
                 <key>RebuildAppleMemoryMap</key>
                 <true/>
                 <key>ResizeAppleGpuBars</key>
-                <integer>-1</integer>
+                <integer>0</integer>
                 <key>SetupVirtualMap</key>
                 <false/>
                 <key>SignalAppleOS</key>
@@ -1079,7 +1079,7 @@
                     <key>SystemAudioVolume</key>
                     <data>Rg==</data>
                     <key>boot-args</key>
-                    <string>-v keepsyms=1 alcid=11 revcpu=1</string>
+                    <string>-v keepsyms=1 alcid=11 revcpu=1 agdpmod=pikera</string>
                     <key>csr-active-config</key>
                     <data>AAAAAA==</data>
                     <key>prev-lang:kbd</key>

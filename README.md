@@ -1,93 +1,38 @@
-# Hackintosh-Opencore-MAG-MSI--B550M-MORTAR-WIFI
+# [OpenCore](https://github.com/acidanthera/OpenCorePkg) configuration for MSI B550M MORTAR
 
-微星(MSI)MAG B550M MORTAR WIFI迫击炮
-
-![macOS](Pictures/macOS.png)
-
-**OpenCore : 0.7.6**
-
-**macOS ：12.1 Beta**
+**macOS ：11.6**
 
 **SMBIOS : MacPro7,1**
 
-### Specification
+### Builds
 
-| **Component** | **Model**            |
-| ------------------- | -------------------------- |
-| CPU                 | AMD R7 3700X               |
-| Motherboard         | MSI(MAG) B550M MORTAR WIFI |
-| RAM                 | Kingston 16GB DDR4 2400    |
+| **Component** | **Model**                  |
+| ------------------- |----------------------------|
+| CPU                 | AMD R7 5800X               |
+| Motherboard         | MSI B550M MORTAR WIFI |
+| RAM                 | 16GB x 2          |
 | Audio Chipset       | ALCS1200A                  |
-| GPU                 | XFX RX 590 8G              |
+| GPU                 | RX 6800                    |
 | Ethernet            | RTL8125B 2.5GbE            |
 | WiFi & Bluetooth    | Intel WiFi 6 AX200         |
-| OS Disk(nvme)       | kioxia RC10 1TB            |
 
 ### What works
 
 - Audio
-
-  [AppleALC](https://github.com/acidanthera/AppleALC) ( `alcid=11 `)
 - Ethernet
-
-  [LucyRTL8125Ethernet](https://github.com/Mieze/LucyRTL8125Ethernet)
 - USB
 - Wi-Fi
-
-  [itlwm](https://github.com/OpenIntelWireless/itlwm)
-
-  AirportItlwm.kext set the `MaxKernel` field to `20.99.9` (BigSur)
-
-  AirportItlwm12.kext set the `MinKernel` field to `21.00.0` (Monterey)
 - Bluetooth
 
-  [IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware)
+### Read Me First!
 
-  IntelBluetoothInjector.kext set the `MaxKernel` field to `20.99.9` (BigSur)
-
-  BlueToolFixup.kext set the `MinKernel` field to `21.00.0` (Monterey)
-
-### NEW AMD Kernel Patches
-
-1. Enable `ProvideCurrentCpuInfo`
-
-   `Kernel -> Quirks -> ProvideCurrentCpuInfo`
-2. Edit the core count patch to match your CPU
-
-   [AMD Vanilla OpenCore o](https://github.com/AMD-OSX/AMD_Vanilla/tree/master)r [OpenCore-Install-Guide](https://dortania.github.io/OpenCore-Install-Guide/extras/monterey.html#amd-patches)
-
-   > Find the three `algrey - Force cpuid_cores_per_package`
-   >
-   > - `kernel -> Patch -> 0  -> Replace` for macOS 10.13,10.14
-   > - `kernel -> Patch -> 1  -> Replace` for macOS 10.15,11.0
-   > - `kernel -> Patch -> 2  -> Replace` for macOS 12.0
-   >
-   > ```
-   > B8000000 0000 => B8 <core count> 0000 0000
-   > BA000000 0000 => BA <core count> 0000 0000
-   > BA000000 0090 => BA <core count> 0000 0090
-   > ```
-   >
-   > | CoreCount | Hexadecimal |
-   > | --------- | ----------- |
-   > | 6 Core    | 06          |
-   > | 8 Core    | 08          |
-   > | 12 Core   | 0C          |
-   > | 16 Core   | 10          |
-   > | 32 Core   | 20          |
-   > | 64 Core   | 40          |
-   >
-   > for eamlple : 3700X 8 Core
-   >
-   > ```
-   > B8 08 0000 0000
-   > BA 08 0000 0000
-   > BA 08 0000 0090
-   > ```
-   >
-
-please use [OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/) or  [OC Auxiliary](https://github.com/ic005k/QtOpenCoreConfig)  or  [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)  to generate yourself SMBIOS
+- This config adopts the RX 6800 and it's [Smart Access Memory](https://www.amd.com/en/technologies/smart-access-memory)
+  by default, you need to enable `Resizeable Bar` and `Above 4g memory` properties in BIOS.
+- If your cpu don't have 8 cores (e.g. 6 core 5600X)_,_ you must change patch values
+  of `algrey - Force cpuid_cores_per_package` to boot your system.
+  See [AMD_Vanilla ReadMe](https://github.com/AMD-OSX/AMD_Vanilla#read-me-first) for details.
 
 ### Monterey
 
-Most MSI B550 motherboard need use the 7C94v12 version of the bios to start Monterey. Please test yourself according to your hardware.
+Most MSI B550 motherboard need use the 7C94v12 version of the bios to start Monterey. Please test yourself according to
+your hardware.
